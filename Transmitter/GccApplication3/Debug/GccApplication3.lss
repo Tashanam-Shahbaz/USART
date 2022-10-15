@@ -1,0 +1,344 @@
+
+GccApplication3.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  0000020a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000001b6  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  0000020a  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000023c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000028  00000000  00000000  00000278  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000007cd  00000000  00000000  000002a0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000006c8  00000000  00000000  00000a6d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000330  00000000  00000000  00001135  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000044  00000000  00000000  00001468  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003d7  00000000  00000000  000014ac  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000105  00000000  00000000  00001883  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000018  00000000  00000000  00001988  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 38 00 	jmp	0x70	; 0x70 <__ctors_end>
+   4:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+   8:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+   c:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  10:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  14:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  18:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  1c:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  20:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  24:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  28:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  2c:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  30:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  34:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  38:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  3c:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  40:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  44:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  48:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  4c:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  50:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  54:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  58:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  5c:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  60:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  64:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  68:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+  6c:	0c 94 42 00 	jmp	0x84	; 0x84 <__bad_interrupt>
+
+00000070 <__ctors_end>:
+  70:	11 24       	eor	r1, r1
+  72:	1f be       	out	0x3f, r1	; 63
+  74:	cf ef       	ldi	r28, 0xFF	; 255
+  76:	d4 e0       	ldi	r29, 0x04	; 4
+  78:	de bf       	out	0x3e, r29	; 62
+  7a:	cd bf       	out	0x3d, r28	; 61
+  7c:	0e 94 4f 00 	call	0x9e	; 0x9e <main>
+  80:	0c 94 d9 00 	jmp	0x1b2	; 0x1b2 <_exit>
+
+00000084 <__bad_interrupt>:
+  84:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000088 <GetKeyPressed>:
+}
+	
+// GetKeyPressed Function
+int GetKeyPressed(void){
+	char x;
+	PORTB=0x00; //active low enable
+  88:	18 ba       	out	0x18, r1	; 24
+	int data;
+	x=PINC;
+  8a:	83 b3       	in	r24, 0x13	; 19
+	if(x==0x01)
+  8c:	81 30       	cpi	r24, 0x01	; 1
+  8e:	21 f4       	brne	.+8      	; 0x98 <GetKeyPressed+0x10>
+	{
+		data=(PIND&0x0F);
+  90:	80 b3       	in	r24, 0x10	; 16
+  92:	8f 70       	andi	r24, 0x0F	; 15
+  94:	90 e0       	ldi	r25, 0x00	; 0
+		return data;
+  96:	08 95       	ret
+	}
+	return 16; //Nothing is Pressed.
+  98:	80 e1       	ldi	r24, 0x10	; 16
+  9a:	90 e0       	ldi	r25, 0x00	; 0
+  9c:	08 95       	ret
+
+0000009e <main>:
+// Initializing the function for getting keys which are Pressed on keypad
+int GetKeyPressed(void);
+
+// Main function
+int main(void)
+{
+  9e:	cf 93       	push	r28
+  a0:	df 93       	push	r29
+  a2:	cd b7       	in	r28, 0x3d	; 61
+  a4:	de b7       	in	r29, 0x3e	; 62
+  a6:	68 97       	sbiw	r28, 0x18	; 24
+  a8:	0f b6       	in	r0, 0x3f	; 63
+  aa:	f8 94       	cli
+  ac:	de bf       	out	0x3e, r29	; 62
+  ae:	0f be       	out	0x3f, r0	; 63
+  b0:	cd bf       	out	0x3d, r28	; 61
+	//use for accessing character of password.
+	int index = 0;
+	
+	//Original Password defined at transmitter end.
+	char Original_Password_Transmitter[4] = {'1','2','3','4'};  
+  b2:	21 e3       	ldi	r18, 0x31	; 49
+  b4:	29 83       	std	Y+1, r18	; 0x01
+  b6:	92 e3       	ldi	r25, 0x32	; 50
+  b8:	9a 83       	std	Y+2, r25	; 0x02
+  ba:	83 e3       	ldi	r24, 0x33	; 51
+  bc:	8b 83       	std	Y+3, r24	; 0x03
+  be:	34 e3       	ldi	r19, 0x34	; 52
+  c0:	3c 83       	std	Y+4, r19	; 0x04
+	
+	// Initializing Keys of Keypad
+	char digit[20]=
+  c2:	fe 01       	movw	r30, r28
+  c4:	35 96       	adiw	r30, 0x05	; 5
+  c6:	44 e1       	ldi	r20, 0x14	; 20
+  c8:	df 01       	movw	r26, r30
+  ca:	1d 92       	st	X+, r1
+  cc:	4a 95       	dec	r20
+  ce:	e9 f7       	brne	.-6      	; 0xca <main+0x2c>
+  d0:	47 e3       	ldi	r20, 0x37	; 55
+  d2:	4d 83       	std	Y+5, r20	; 0x05
+  d4:	48 e3       	ldi	r20, 0x38	; 56
+  d6:	4e 83       	std	Y+6, r20	; 0x06
+  d8:	49 e3       	ldi	r20, 0x39	; 57
+  da:	4f 83       	std	Y+7, r20	; 0x07
+  dc:	4f e2       	ldi	r20, 0x2F	; 47
+  de:	48 87       	std	Y+8, r20	; 0x08
+  e0:	39 87       	std	Y+9, r19	; 0x09
+  e2:	35 e3       	ldi	r19, 0x35	; 53
+  e4:	3a 87       	std	Y+10, r19	; 0x0a
+  e6:	36 e3       	ldi	r19, 0x36	; 54
+  e8:	3b 87       	std	Y+11, r19	; 0x0b
+  ea:	3a e2       	ldi	r19, 0x2A	; 42
+  ec:	3c 87       	std	Y+12, r19	; 0x0c
+  ee:	2d 87       	std	Y+13, r18	; 0x0d
+  f0:	9e 87       	std	Y+14, r25	; 0x0e
+  f2:	8f 87       	std	Y+15, r24	; 0x0f
+  f4:	8d e2       	ldi	r24, 0x2D	; 45
+  f6:	88 8b       	std	Y+16, r24	; 0x10
+  f8:	81 e4       	ldi	r24, 0x41	; 65
+  fa:	89 8b       	std	Y+17, r24	; 0x11
+  fc:	80 e3       	ldi	r24, 0x30	; 48
+  fe:	8a 8b       	std	Y+18, r24	; 0x12
+ 100:	8d e3       	ldi	r24, 0x3D	; 61
+ 102:	8b 8b       	std	Y+19, r24	; 0x13
+ 104:	8b e2       	ldi	r24, 0x2B	; 43
+ 106:	8c 8b       	std	Y+20, r24	; 0x14
+		'1','2','3','-',
+		'A','0','=','+','\0'
+		}; 
+		
+	//LSBs are input of Port D		
+	DDRD=0xF0;	//For Keypad
+ 108:	80 ef       	ldi	r24, 0xF0	; 240
+ 10a:	81 bb       	out	0x11, r24	; 17
+	DDRA=0xFF;  //For Showing Output at 7-Segment.
+ 10c:	8f ef       	ldi	r24, 0xFF	; 255
+ 10e:	8a bb       	out	0x1a, r24	; 26
+	DDRC=0x00;  //data available declaring pc0 as input
+ 110:	14 ba       	out	0x14, r1	; 20
+	DDRB=0x02;	// output enable
+ 112:	82 e0       	ldi	r24, 0x02	; 2
+ 114:	87 bb       	out	0x17, r24	; 23
+	
+	//Setting Baud Rate
+	UBRR1L=0x05;
+ 116:	85 e0       	ldi	r24, 0x05	; 5
+ 118:	80 b9       	out	0x00, r24	; 0
+	UBRR1H=0x00;
+ 11a:	1c be       	out	0x3c, r1	; 60
+	
+	//Enable Transmitter
+	UCSR1B|=(1<<TXEN1);
+ 11c:	81 b1       	in	r24, 0x01	; 1
+ 11e:	88 60       	ori	r24, 0x08	; 8
+ 120:	81 b9       	out	0x01, r24	; 1
+	
+	//Set Frame Format
+	UCSR1C = (1<<URSEL1)|(3<<UCSZ10);
+ 122:	86 e8       	ldi	r24, 0x86	; 134
+ 124:	8c bf       	out	0x3c, r24	; 60
+	
+	//Initializing for push button. Use for reseting 7-segment.
+	char push_button; 
+	
+	// 7-segment will show C which means Close	
+	PORTA=0b11000110;  
+ 126:	86 ec       	ldi	r24, 0xC6	; 198
+ 128:	8b bb       	out	0x1b, r24	; 27
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 12a:	bf e3       	ldi	r27, 0x3F	; 63
+ 12c:	2d e0       	ldi	r18, 0x0D	; 13
+ 12e:	83 e0       	ldi	r24, 0x03	; 3
+ 130:	b1 50       	subi	r27, 0x01	; 1
+ 132:	20 40       	sbci	r18, 0x00	; 0
+ 134:	80 40       	sbci	r24, 0x00	; 0
+ 136:	e1 f7       	brne	.-8      	; 0x130 <main+0x92>
+ 138:	00 c0       	rjmp	.+0      	; 0x13a <main+0x9c>
+ 13a:	00 00       	nop
+
+// Main function
+int main(void)
+{
+	//use for accessing character of password.
+	int index = 0;
+ 13c:	e1 2c       	mov	r14, r1
+ 13e:	f1 2c       	mov	r15, r1
+	_delay_ms(1000);
+	
+	while(1)
+	{	
+		//push button placed on PB0
+		push_button = PINB&00000001; 
+ 140:	16 b3       	in	r17, 0x16	; 22
+ 142:	11 70       	andi	r17, 0x01	; 1
+		
+		// Calling GetKeyPressed function
+		Key = GetKeyPressed(); 
+ 144:	0e 94 44 00 	call	0x88	; 0x88 <GetKeyPressed>
+		
+		//When we get input from keypad.
+		if (Key!=16){
+ 148:	80 31       	cpi	r24, 0x10	; 16
+ 14a:	91 05       	cpc	r25, r1
+ 14c:	a1 f0       	breq	.+40     	; 0x176 <main+0xd8>
+			
+			if(digit[Key]==Original_Password_Transmitter[index]){
+ 14e:	e5 e0       	ldi	r30, 0x05	; 5
+ 150:	f0 e0       	ldi	r31, 0x00	; 0
+ 152:	ec 0f       	add	r30, r28
+ 154:	fd 1f       	adc	r31, r29
+ 156:	e8 0f       	add	r30, r24
+ 158:	f9 1f       	adc	r31, r25
+ 15a:	80 81       	ld	r24, Z
+ 15c:	e1 e0       	ldi	r30, 0x01	; 1
+ 15e:	f0 e0       	ldi	r31, 0x00	; 0
+ 160:	ec 0f       	add	r30, r28
+ 162:	fd 1f       	adc	r31, r29
+ 164:	ee 0d       	add	r30, r14
+ 166:	ff 1d       	adc	r31, r15
+ 168:	90 81       	ld	r25, Z
+ 16a:	89 13       	cpse	r24, r25
+ 16c:	03 c0       	rjmp	.+6      	; 0x174 <main+0xd6>
+				
+				index++; // incrementing index
+ 16e:	9f ef       	ldi	r25, 0xFF	; 255
+ 170:	e9 1a       	sub	r14, r25
+ 172:	f9 0a       	sbc	r15, r25
+			}
+			//Sending input keypad's character to Receiver. 
+			UDR1=digit[Key];
+ 174:	83 b9       	out	0x03, r24	; 3
+		}
+		
+	    if (push_button==1){
+ 176:	11 30       	cpi	r17, 0x01	; 1
+ 178:	79 f4       	brne	.+30     	; 0x198 <main+0xfa>
+			index=0;
+			//If Push button is Pressed the DC motor rotate in opposite direction for again Locking the Door.
+			UDR1='*';
+ 17a:	8a e2       	ldi	r24, 0x2A	; 42
+ 17c:	83 b9       	out	0x03, r24	; 3
+			
+			// If Push button is Pressed then 7-segment will change from Open(O) to Close(C)
+			PORTA=0b11000110;  
+ 17e:	86 ec       	ldi	r24, 0xC6	; 198
+ 180:	8b bb       	out	0x1b, r24	; 27
+ 182:	af e3       	ldi	r26, 0x3F	; 63
+ 184:	bd e0       	ldi	r27, 0x0D	; 13
+ 186:	23 e0       	ldi	r18, 0x03	; 3
+ 188:	a1 50       	subi	r26, 0x01	; 1
+ 18a:	b0 40       	sbci	r27, 0x00	; 0
+ 18c:	20 40       	sbci	r18, 0x00	; 0
+ 18e:	e1 f7       	brne	.-8      	; 0x188 <main+0xea>
+ 190:	00 c0       	rjmp	.+0      	; 0x192 <main+0xf4>
+ 192:	00 00       	nop
+			//Sending input keypad's character to Receiver. 
+			UDR1=digit[Key];
+		}
+		
+	    if (push_button==1){
+			index=0;
+ 194:	e1 2c       	mov	r14, r1
+ 196:	f1 2c       	mov	r15, r1
+			// If Push button is Pressed then 7-segment will change from Open(O) to Close(C)
+			PORTA=0b11000110;  
+			_delay_ms(1000);
+		}
+			
+ 		if (index==4)
+ 198:	84 e0       	ldi	r24, 0x04	; 4
+ 19a:	e8 16       	cp	r14, r24
+ 19c:	f1 04       	cpc	r15, r1
+ 19e:	11 f4       	brne	.+4      	; 0x1a4 <main+0x106>
+		 {
+			PORTA=0b11000000; //7-segment will show O which means Open
+ 1a0:	80 ec       	ldi	r24, 0xC0	; 192
+ 1a2:	8b bb       	out	0x1b, r24	; 27
+		}
+	
+		if(index!=4)
+ 1a4:	94 e0       	ldi	r25, 0x04	; 4
+ 1a6:	e9 16       	cp	r14, r25
+ 1a8:	f1 04       	cpc	r15, r1
+ 1aa:	51 f2       	breq	.-108    	; 0x140 <main+0xa2>
+		{
+			PORTA=0b11000110;  // 7-segment will show C which means Close
+ 1ac:	86 ec       	ldi	r24, 0xC6	; 198
+ 1ae:	8b bb       	out	0x1b, r24	; 27
+ 1b0:	c7 cf       	rjmp	.-114    	; 0x140 <main+0xa2>
+
+000001b2 <_exit>:
+ 1b2:	f8 94       	cli
+
+000001b4 <__stop_program>:
+ 1b4:	ff cf       	rjmp	.-2      	; 0x1b4 <__stop_program>
