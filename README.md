@@ -33,8 +33,8 @@ The correct password is already defined. The user then types the password, it is
 
 The DC motor is stationary at the start. If the password entered by the user is valid, the motor starts rotating in clock-wise direction. On the other hand, if the password is invalid the motor remains stationary. When user press push button for reinitializing the system, DC motor rotate counter-Clock wise.
 
-<img src="schematices/schematices_1.png" alt="Alt text" title="Optional title" />
+<img src="./schematices/schematices_1.PNG" alt="Alt text" title="Optional title" />
 
-<img src="schematices/closed.png" alt="Alt text" title="Optional title" />
+<img src="./schematices/closed.PNG" alt="Alt text" title="Optional title" />
 
-<img src="schematices/open.png" alt="Alt text" title="Optional title" />
+<img src="./schematices/open.PNG" alt="Alt text" title="Optional title" />
